@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 import { searchOrders } from "@/api/msts.api";
 import { OrderList, OrderListSkeleton } from "@/components/order-list";
+import { Toast } from "@/components/toast";
 import { Screen, ScreenContent } from "@/components/ui/screen";
 import { WriteBar } from "@/components/write-bar";
 import { useGrispi } from "@/contexts/grispi-context";
@@ -29,7 +30,7 @@ export const HomeScreen = observer(() => {
   const [isWriting, setIsWriting] = useState(false);
   const [writeError, setWriteError] = useState<string | null>(null);
   const [writtenCode, setWrittenCode] = useState<string | null>(null);
-  const [announcement, setAnnouncement] = useState("");
+  const [toast, setToast] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const fieldValue = ticket?.fieldMap?.[ORDER_CODE_FIELD]?.value;
@@ -86,7 +87,7 @@ export const HomeScreen = observer(() => {
 
       await refreshTicket();
       setWrittenCode(selectedCode);
-      setAnnouncement(`${selectedCode} ticket'a yazıldı.`);
+      setToast("Kaydedildi");
       setSelectedCode(null);
     } catch {
       setWriteError("Ticket güncellenemedi. Tekrar deneyin.");
@@ -94,6 +95,8 @@ export const HomeScreen = observer(() => {
 
     setIsWriting(false);
   };
+
+  const dismissToast = useCallback(() => setToast(null), []);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -206,8 +209,8 @@ export const HomeScreen = observer(() => {
         />
       )}
 
-      <div aria-live="polite" className="sr-only">
-        {announcement}
+      <div role="status" aria-live="polite">
+        {toast && <Toast message={toast} onDismiss={dismissToast} />}
       </div>
     </Screen>
   );
