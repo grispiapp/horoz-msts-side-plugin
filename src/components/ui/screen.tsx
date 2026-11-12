@@ -18,7 +18,7 @@ export const Screen: FC<ScreenProps> = ({ children, className, ...props }) => {
   return (
     <div
       {...props}
-      className={cn("flex fixed inset-0 flex-col bg-slate-50", className)}
+      className={cn("flex fixed inset-0 flex-col bg-white", className)}
     >
       {children}
     </div>

@@ -33,6 +33,12 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Panel palette: #1F2333 ink, #6B7085 subtle, #E6E7EE line, #F5F0FB selected row */
+    --ink: 228 24% 16%;
+    --subtle: 230 11% 47%;
+    --line: 233 17% 92%;
+    --select: 266 60% 96%;
   }
 
   .dark {
@@ -71,6 +77,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-ink antialiased;
   }
 }
