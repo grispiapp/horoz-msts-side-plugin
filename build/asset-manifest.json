@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/horoz-msts-side-plugin/build/static/css/main.9696e2ba.css",
-    "main.js": "/horoz-msts-side-plugin/build/static/js/main.dc1c9d8e.js",
+    "main.css": "/horoz-msts-side-plugin/build/static/css/main.ea6ec477.css",
+    "main.js": "/horoz-msts-side-plugin/build/static/js/main.865a80a4.js",
     "index.html": "/horoz-msts-side-plugin/build/index.html",
-    "main.9696e2ba.css.map": "/horoz-msts-side-plugin/build/static/css/main.9696e2ba.css.map",
-    "main.dc1c9d8e.js.map": "/horoz-msts-side-plugin/build/static/js/main.dc1c9d8e.js.map"
+    "main.ea6ec477.css.map": "/horoz-msts-side-plugin/build/static/css/main.ea6ec477.css.map",
+    "main.865a80a4.js.map": "/horoz-msts-side-plugin/build/static/js/main.865a80a4.js.map"
   },
   "entrypoints": [
-    "static/css/main.9696e2ba.css",
-    "static/js/main.dc1c9d8e.js"
+    "static/css/main.ea6ec477.css",
+    "static/js/main.865a80a4.js"
   ]
 }

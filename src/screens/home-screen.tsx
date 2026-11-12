@@ -6,12 +6,7 @@ import { LoadingWrapper } from "@/components/loading-wrapper";
 import { OrderListItem } from "@/components/order-list-item";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Screen,
-  ScreenContent,
-  ScreenHeader,
-  ScreenTitle,
-} from "@/components/ui/screen";
+import { Screen, ScreenContent } from "@/components/ui/screen";
 import { useGrispi } from "@/contexts/grispi-context";
 import { grispiAPI } from "@/grispi/client/api";
 import { isApiError } from "@/types/api.type";
@@ -117,17 +112,14 @@ export const HomeScreen = observer(() => {
 
   return (
     <Screen>
-      <ScreenHeader>
-        <ScreenTitle>Horoz Siparişleri</ScreenTitle>
-      </ScreenHeader>
       <ScreenContent>
-        <div className="flex flex-col gap-3 p-3">
-          <div className="flex justify-between items-center px-3 py-2.5 bg-white rounded-lg border">
-            <span className="text-xs text-muted-foreground">
-              Ticket'taki sipariş kodu
+        <div className="flex flex-col gap-2.5 p-2.5">
+          <div className="flex gap-2 justify-between items-center px-2.5 py-2 bg-white rounded-lg border">
+            <span className="text-xs whitespace-nowrap text-muted-foreground">
+              Ticket'taki kod
             </span>
             {currentCode ? (
-              <span className="font-mono text-sm font-medium">
+              <span className="font-mono text-[13px] font-medium truncate">
                 {currentCode}
               </span>
             ) : (
@@ -135,7 +127,7 @@ export const HomeScreen = observer(() => {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="flex gap-2">
+          <form onSubmit={handleSubmit} className="flex gap-1.5">
             <Input
               type="tel"
               inputMode="tel"
@@ -143,10 +135,14 @@ export const HomeScreen = observer(() => {
               aria-label="Telefon numarası"
               placeholder="5XX XXX XX XX"
               value={phone}
-              className="bg-white"
+              className="min-w-0 bg-white"
               onChange={(e) => setPhone(e.target.value)}
             />
-            <Button type="submit" disabled={isSearching || !phone.trim()}>
+            <Button
+              type="submit"
+              className="px-3"
+              disabled={isSearching || !phone.trim()}
+            >
               Ara
             </Button>
           </form>
@@ -176,8 +172,8 @@ export const HomeScreen = observer(() => {
 
           {!isSearching && orders && orders.length > 0 && (
             <div>
-              <div className="px-1 mb-1.5 text-xs text-muted-foreground">
-                {orders.length} sipariş · en yeni üstte
+              <div className="px-0.5 mb-1 text-xs text-muted-foreground">
+                {orders.length} sipariş, en yeni üstte
               </div>
               <ul className="overflow-hidden bg-white rounded-lg border divide-y">
                 {orders.map((order) => (

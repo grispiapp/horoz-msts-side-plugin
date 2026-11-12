@@ -27,57 +27,61 @@ export const OrderListItem: FC<OrderListItemProps> = ({
   const isCurrent = currentCode === order.code;
 
   return (
-    <li className={cn("px-3 py-2.5", isCurrent && "bg-emerald-50/60")}>
-      <div className="flex gap-3 justify-between items-center">
-        <div className="min-w-0">
-          <div className="font-mono text-sm font-medium text-foreground">
-            {order.code}
-          </div>
-          <div className="flex gap-1.5 items-center mt-0.5 text-xs text-muted-foreground">
-            <span className="tabular-nums">
-              {formatMstsDate(order.orderedAt)}
-            </span>
-            <span aria-hidden>·</span>
-            <span
-              title={order.atfStatus ?? undefined}
-              className={cn(order.atfCreated && "text-emerald-700")}
-            >
-              {order.atfCreated ? "ATF var" : "ATF yok"}
-            </span>
-          </div>
-        </div>
+    <li className={cn("px-2.5 py-2", isCurrent && "bg-emerald-50/70")}>
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-2 items-center">
+        <span className="font-mono text-[13px] font-medium truncate text-foreground">
+          {order.code}
+        </span>
 
         {isCurrent ? (
-          <span className="flex gap-1 items-center text-xs font-medium text-emerald-700 shrink-0">
-            <CheckIcon className="size-4" />
+          <span className="flex gap-0.5 items-center h-7 text-xs font-medium text-emerald-700">
+            <CheckIcon className="size-3.5" />
             Ticket'ta
           </span>
         ) : (
-          !isConfirming && (
-            <Button
-              size="sm"
-              variant="outline"
-              className="shrink-0"
-              disabled={disabled}
-              onClick={onWrite}
-            >
-              {isWriting ? "Yazılıyor…" : "Ticket'a yaz"}
-            </Button>
-          )
+          <Button
+            size="sm"
+            variant="outline"
+            className="px-2.5 h-7"
+            disabled={disabled || isConfirming}
+            onClick={onWrite}
+          >
+            {isWriting && !isConfirming ? "Yazılıyor…" : "Ticket'a yaz"}
+          </Button>
         )}
+
+        <div className="flex col-span-2 gap-1.5 items-center text-xs whitespace-nowrap text-muted-foreground">
+          <span className="tabular-nums">{formatMstsDate(order.orderedAt)}</span>
+          <span
+            title={order.atfStatus ?? undefined}
+            className={cn(
+              "inline-flex gap-1 items-center",
+              order.atfCreated && "text-emerald-700"
+            )}
+          >
+            <span
+              aria-hidden
+              className={cn(
+                "size-1.5 rounded-full",
+                order.atfCreated ? "bg-emerald-500" : "bg-slate-300"
+              )}
+            />
+            {order.atfCreated ? "ATF var" : "ATF yok"}
+          </span>
+        </div>
       </div>
 
       {isConfirming && (
-        <div className="p-2.5 mt-2 text-xs bg-amber-50 rounded-md border border-amber-200 text-amber-900">
-          <p>
-            Ticket'taki <span className="font-mono">{currentCode}</span> kodu{" "}
-            <span className="font-mono">{order.code}</span> ile değiştirilecek.
+        <div className="p-2 mt-2 text-xs bg-amber-50 rounded-md border border-amber-200 text-amber-900">
+          <p className="leading-relaxed">
+            <span className="font-mono">{currentCode}</span> yerine{" "}
+            <span className="font-mono">{order.code}</span> yazılacak.
           </p>
-          <div className="flex gap-2 justify-end mt-2">
-            <Button size="sm" variant="ghost" onClick={onCancel}>
+          <div className="grid grid-cols-2 gap-1.5 mt-2">
+            <Button size="sm" variant="outline" className="h-7" onClick={onCancel}>
               Vazgeç
             </Button>
-            <Button size="sm" disabled={disabled} onClick={onWrite}>
+            <Button size="sm" className="h-7" disabled={disabled} onClick={onWrite}>
               {isWriting ? "Yazılıyor…" : "Değiştir"}
             </Button>
           </div>
